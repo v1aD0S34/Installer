@@ -1,0 +1,6 @@
+{
+    "packages_lite": [
+        "Alpha.HMI",
+        "Alpha.HMI.Charts"
+    ]
+}

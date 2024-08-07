@@ -1,13 +1,32 @@
+import os
 import platform
 
 from LinuxCore.LinuxInstaller import offline_install_linux, online_install_linux
 from WindowsCore.WindowsInstaller import online_install_windows, offline_install_windows
 from Tools.logger import log_to_file
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+def HelloSaid():
+    version = os.getenv('VERSION')
+    print("=====================================================")
+    print("||                                                 ||")
+    print("||  Вас приветствует установщик альфа компонентов  ||")
+    print("||                                                 ||")
+    print(f"||  Версия: {version}                                  ||")
+    print("||                                                 ||")
+    print("||  Разработчик: Чепусов Влад                      ||")
+    print("||  Год начала разработки: 2024                    ||")
+    print("||  Город разработки: Санкт-Петербург              ||")
+    print("||                                                 ||")
+    print("=====================================================\n\n")
 
 
 # Запрашиваем формат установки (с инетом или без)
 def installation_method_prompt():
-    question = "Как будем устанавливать программу: 1 - Оффлайн, 2 - Онлайн? "
+    question = "Как будем устанавливать программу: 1 - Оффлайн, 2 - Онлайн? \nВвод = "
     while True:
         try:
             choice = int(input(question))
@@ -27,6 +46,7 @@ def installation_method_prompt():
 
 
 def main():
+    HelloSaid()
     installation_type = installation_method_prompt()  # Получаем тип установки
 
     # Создаем словарь действий в зависимости от типа установки
@@ -38,8 +58,8 @@ def main():
     # Выполняем соответствующее действие
     action = actions.get(installation_type)
     if action:
-        #print(action["message"])
-        #Определяем ОС
+        # print(action["message"])
+        # Определяем ОС
         system = platform.system()
         install_func = action.get(system)
         if install_func:
